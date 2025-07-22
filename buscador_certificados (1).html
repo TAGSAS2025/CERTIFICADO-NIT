@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Descarga de Certificados</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 40px;
+      max-width: 600px;
+      margin: auto;
+    }
+    h2 {
+      color: #333;
+    }
+    input, button {
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+      font-size: 16px;
+    }
+    .resultado {
+      margin-top: 20px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 5px;
+      display: none;
+    }
+    .error {
+      color: red;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Buscar Certificado por NIT</h2>
+  <input type="text" id="nitInput" placeholder="Ingresa tu NIT">
+  <button onclick="buscarCertificado()">Buscar</button>
+
+  <div id="resultado" class="resultado"></div>
+  <div id="error" class="error"></div>
+
+  <script>
+    const certificados = {
+  "8909285770": {
+    nombre: "ASCENDER SA",
+    enlace: "https://drive.google.com/file/d/1EP47aePxJ7KkQB_ov56gM2VMpqUMqGRv/view?usp=drive_link"
+  },
+  "32875361": {
+    nombre: "BARRAZA MIER ROCIO YINETH",
+    enlace: "https://drive.google.com/file/d/1CnVSH_9m-rvh6hu3qHERwzVKUUz6x2kR/view?usp=drive_link"
+  },
+  "9012573551": {
+    nombre: "BIO EYZA S.A.S",
+    enlace: "https://drive.google.com/file/d/168Bjz6lnYTuTJ7boBrFmsnQ_0hItPzOu/view?usp=drive_link"
+  },
+  "9012928061": {
+    nombre: "BIORAK S.A.S",
+    enlace: "https://drive.google.com/file/d/12li4CzqtJvnjI0cOnrKdGTIaMAJgMKAF/view?usp=drive_link"
+  },
+  "9010749070": {
+    nombre: "BIOSOLPLASTIK DE COLOMBIA SAS",
+    enlace: "https://drive.google.com/file/d/1rsDLVEfiNWCEPsXBR-MIWT1iVHhR6AxS/view?usp=drive_link"
+  },
+  "9005844296": {
+    nombre: "C.I. UNIPACK COLOMBIA S.AS.",
+    enlace: "https://drive.google.com/file/d/1Oeq8VovaVcTo9cmashmuEFxp28HX6m0K/view?usp=drive_link"
+  },
+  "9003264520": {
+    nombre: "CARTONERA NACIONAL S.A.",
+    enlace: "https://drive.google.com/file/d/1wXwKkJAv0cINvY8pUz3zBkONm5QUYiv5/view?usp=drive_link"
+  },
+  "9004110620": {
+    nombre: "CHAO COMUNICACION VISUAL SAS",
+    enlace: "https://drive.google.com/file/d/1GfZ9BLzUOyi_bTKcvokxdOAk1MY7rMo8/view?usp=drive_link"
+  },
+  "9002220288": {
+    nombre: "CI METALMECANICA INDUSTRIAL S.A.S",
+    enlace: "https://drive.google.com/file/d/1-fAy14BB0BYDwB4UebBYop7HTpXcAYr0/view?usp=drive_link"
+  }
+};
+
+    function buscarCertificado() {
+      const nit = document.getElementById("nitInput").value.replace(/\D/g, '');
+      const resultado = document.getElementById("resultado");
+      const error = document.getElementById("error");
+      resultado.style.display = "none";
+      resultado.innerHTML = "";
+      error.innerHTML = "";
+
+      if (certificados[nit]) {
+        const data = certificados[nit];
+        resultado.innerHTML = `<strong>Nombre:</strong> ${data.nombre}<br><br>
+          <a href="${data.enlace}" target="_blank">Descargar Certificado</a>`;
+        resultado.style.display = "block";
+      } else {
+        error.innerHTML = "No se encontró un certificado para ese NIT.";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Certificados por NIT</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 40px; }
+        input, button { padding: 10px; font-size: 16px; }
+        .resultado { margin-top: 20px; }
+        a.boton-descarga { display: inline-block; margin-top: 10px; padding: 10px 20px; background-color: #007bff;
+            color: white; text-decoration: none; border-radius: 4px; }
+        a.boton-descarga:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h2>Buscar Certificado por NIT</h2>
+    <input type="text" id="nit" placeholder="Ingrese su NIT" />
+    <button onclick="buscarCertificado()">Buscar</button>
+    <div class="resultado" id="resultado"></div>
+    <script>
+        const certificados = {
+  "9001476471": {
+    nombre: "AGENCIA FULLER S.A.S",
+    enlace: "https://drive.google.com/file/d/1rq7FAtuc6ryPzJaLPY1merztdpvtucy5/view?usp=drive_link"
+  },
+  "1067870701": {
+    nombre: "ALVAREZ HERRERA NATALI",
+    enlace: "https://drive.google.com/file/d/15RI6Mfo7zeuVav5Tx10TbOfXHLS7tBsn/view?usp=drive_link"
+  },
+  "9011501468": {
+    nombre: "AMI SOLUCIONES SOSTENIBLES SAS",
+    enlace: "https://drive.google.com/file/d/17M0E26GdU8sIQj11srSXHNT3oskohryV/view?usp=drive_link"
+  },
+  "8305069624": {
+    nombre: "ARIAS & CIA S.A.S",
+    enlace: "https://drive.google.com/file/d/1vcbmGqAlNbIq9xiCCbwq8S9pxkqYGRZ-/view?usp=drive_link"
+  },
+  "8909285770": {
+    nombre: "ASCENDER SA",
+    enlace: "https://drive.google.com/file/d/1EP47aePxJ7KkQB_ov56gM2VMpqUMqGRv/view?usp=drive_link"
+  },
+  "32875361": {
+    nombre: "BARRAZA MIER ROCIO YINETH",
+    enlace: "https://drive.google.com/file/d/1CnVSH_9m-rvh6hu3qHERwzVKUUz6x2kR/view?usp=drive_link"
+  },
+  "9012573551": {
+    nombre: "BIO EYZA S.A.S",
+    enlace: "https://drive.google.com/file/d/168Bjz6lnYTuTJ7boBrFmsnQ_0hItPzOu/view?usp=drive_link"
+  },
+  "9012928061": {
+    nombre: "BIORAK S.A.S",
+    enlace: "https://drive.google.com/file/d/12li4CzqtJvnjI0cOnrKdGTIaMAJgMKAF/view?usp=drive_link"
+  },
+  "9010749070": {
+    nombre: "BIOSOLPLASTIK DE COLOMBIA SAS",
+    enlace: "https://drive.google.com/file/d/1rsDLVEfiNWCEPsXBR-MIWT1iVHhR6AxS/view?usp=drive_link"
+  },
+  "9005844296": {
+    nombre: "C.I. UNIPACK COLOMBIA S.AS.",
+    enlace: "https://drive.google.com/file/d/1Oeq8VovaVcTo9cmashmuEFxp28HX6m0K/view?usp=drive_link"
+  },
+  "9003264520": {
+    nombre: "CARNES SANTACRUZ S.A.S",
+    enlace: "https://drive.google.com/file/d/1ZbIHHlqEC8NAub3nPNR3vzEhlnkGy3QJ/view?usp=drive_link"
+  },
+  "73550509": {
+    nombre: "CASTILLA ARRIETA RAMON RAFAEL",
+    enlace: "https://drive.google.com/file/d/1t_N6om9DXDoj7o3gpzqZ--kgQyu8hIRJ/view?usp=drive_link"
+  },
+  "9011957722": {
+    nombre: "COMERCIALIZADORA ECOCOSTA SAS",
+    enlace: "https://drive.google.com/file/d/10kpCUywRObFgTPedyHe7nOT49LUyQs-G/view?usp=drive_link"
+  },
+  "9015038581": {
+    nombre: "COMERCIALIZADORA SOLCA S.A.S",
+    enlace: "https://drive.google.com/file/d/1K9u53uUZZp3oWAJoAaCJFJBsEofg0QNl/view?usp=drive_link"
+  },
+  "8605115416": {
+    nombre: "COMESTIBLES ALFA SAS",
+    enlace: "https://drive.google.com/file/d/1e3eqyDFeI4Lq55p2TWUpEco33Ge_c9NP/view?usp=drive_link"
+  },
+  "9011018631": {
+    nombre: "COUNTRYPLAS LA 60 S.A.S",
+    enlace: "https://drive.google.com/file/d/1PzikILXpNFx1iGsJWzaJlMdW3ScOhaJn/view?usp=drive_link"
+  },
+  "8901003880": {
+    nombre: "CRISTALERIA  SELMAN SAS",
+    enlace: "https://drive.google.com/file/d/16N9YohstrUqr86PcnhxYJg71grSnQtqO/view?usp=drive_link"
+  },
+  "87132163": {
+    nombre: "DIAZ PLATA ISNARDO",
+    enlace: "https://drive.google.com/file/d/12wsfHVMNecLAmnyqNOkTplaBCX38IYKc/view?usp=drive_link"
+  },
+  "156703003": {
+    nombre: "DIAZ ZAPATA LUIS ROBERTO",
+    enlace: "https://drive.google.com/file/d/1i9-j3SHp1d--rH23x0rPI6EW-RCjXyxW/view?usp=drive_link"
+  },
+  "9000705789": {
+    nombre: "DIGITAL COLOMBIA S.A.",
+    enlace: "https://drive.google.com/file/d/1inAiC-k0MhY2C4tgtF0V8YLcNz6Q51R4/view?usp=drive_link"
+  },
+  "9002665212": {
+    nombre: "DISPROPAN CARIBE LTDA",
+    enlace: "https://drive.google.com/file/d/12OmJDhuOLVYqh3SQa1hLiUZycBd6OH0t/view?usp=drive_link"
+  },
+  "9018178327": {
+    nombre: "DISTRIBUCIONES FDK SAS",
+    enlace: "https://drive.google.com/file/d/1zhBgopyTGAU4rjuuVuRKzEHG-tRZ8sYq/view?usp=drive_link"
+  },
+  "8020035992": {
+    nombre: "DISTRIBUCIONES NARANJO S.A.S",
+    enlace: "https://drive.google.com/file/d/1uXehX_T1MSAPr6PZeF-uNEl972eUeHlz/view?usp=drive_link"
+  },
+  "9015633625": {
+    nombre: "DISTRIBUCIONES NORELLY SANCHEZ SAS",
+    enlace: "https://drive.google.com/file/d/1hgOc2nTXBU6sIHRQv4-02Ec8tVN9Q2-K/view?usp=drive_link"
+  },
+  "9009558750": {
+    nombre: "DISTRICUR SAS",
+    enlace: "https://drive.google.com/file/d/1sWjYO4ffM3_GUXomzb6u3G8vKZPlEu0-/view?usp=drive_link"
+  },
+  "8020058205": {
+    nombre: "DITAR SA",
+    enlace: "https://drive.google.com/file/d/15Raftd33RNgrPhX9ITgJGjpDOm4S5VWt/view?usp=drive_link"
+  },
+  "9010935900": {
+    nombre: "DIVERSEY COLOMBIA SAS",
+    enlace: "https://drive.google.com/file/d/1ZLyHNQ-tjLmItKjOgilvql6y4tVC74_w/view?usp=drive_link"
+  },
+  "901354928": {
+    nombre: "DUE-LEGAL S.A.S",
+    enlace: "https://drive.google.com/file/d/1bTmE6GMZconBNAk-5e1z3UvUJZF4wDzk/view?usp=drive_link"
+  },
+  "9003354511": {
+    nombre: "E.QUATRO S.A.S.",
+    enlace: "https://drive.google.com/file/d/12lqGHxmFE2Pq9vhY5sfS0Sxg5Cp9GYvw/view?usp=drive_link"
+  },
+  "8000372245": {
+    nombre: "FABRICA DE PRODUCTOS SAYSA S.A.S",
+    enlace: "https://drive.google.com/file/d/1rO3WGM_85BTJJWkc_9Oz35ADfo3DGZP_/view?usp=drive_link"
+  },
+  "9012144175": {
+    nombre: "FLEXIBLES EL REY SAS",
+    enlace: "https://drive.google.com/file/d/1u5KHKUvZTXRG0UJPXul3Ybb-ov7x_VJv/view?usp=drive_link"
+  },
+  "9002648447": {
+    nombre: "GRACO GROUP SAS",
+    enlace: "https://drive.google.com/file/d/133pXslNCgaghTnjzAgxLbq1x-hMNPu5C/view?usp=drive_link"
+  },
+  "9004319054": {
+    nombre: "GRANOS Y CEREALES LA FRIJOLERA SAS",
+    enlace: "https://drive.google.com/file/d/14ZnF_-Gvcvl9oeoPdJGSLYiijaT0s1ij/view?usp=drive_link"
+  },
+  "9015974028": {
+    nombre: "GRUPO COMERCAR MULTIMARCAS S.A.S.",
+    enlace: "https://drive.google.com/file/d/14DAvnaRmvr98lWR3l4mS97RXUxxRbgsm/view?usp=drive_link"
+  },
+  "9013227591": {
+    nombre: "GRUPO GAOS SAS",
+    enlace: "https://drive.google.com/file/d/1vMVC8KOd2jvjzSjk4mkixGR0fsB0WEBg/view?usp=drive_link"
+  },
+  "9012755658": {
+    nombre: "GRUPO SAVA SAS",
+    enlace: "https://drive.google.com/file/d/1ndFh5oV9QS3r1lXjU9yvbVUVEYtZCyfd/view?usp=drive_link"
+  },
+  "8605118861": {
+    nombre: "INDUSTRIAS LA CORUÑA",
+    enlace: "https://drive.google.com/file/d/12vyEIyGXQgaBJCh1xc_2UloO22qPuqSZ/view?usp=drive_link"
+  },
+  "9006437681": {
+    nombre: "INVERSIONES ASEO INTEGRAL S.A.S",
+    enlace: "https://drive.google.com/file/d/1HEhWURerSbV1wkkUZlqGb7INWF17Vu2a/view?usp=drive_link"
+  },
+  "9003756336": {
+    nombre: "INVERSIONES HORMIGA DEL NORTE SAS",
+    enlace: "https://drive.google.com/file/d/12_aarbZMEnZmVIqcMbD6EtEcc_ZJbtOy/view?usp=drive_link"
+  },
+  "8020144716": {
+    nombre: "INVESAKK S.A.S",
+    enlace: "https://drive.google.com/file/d/1po3tgupKr2Um51qVgZSkHhTGOsEQ2jPT/view?usp=drive_link"
+  },
+  "1045675502": {
+    nombre: "LAGARES CORREA JULIETH MARIA",
+    enlace: "https://drive.google.com/file/d/1KQFHBMtObXeYBzxqNCpTSONlY2ZYr9uI/view?usp=drive_link"
+  },
+  "9009887589": {
+    nombre: "MAX VENTAS DISTRIBUCIONES SAS",
+    enlace: "https://drive.google.com/file/d/1b6uZNh198K6an_nH5n74ICGFbiKUhjOL/view?usp=drive_link"
+  },
+  "9004142808": {
+    nombre: "MEGACEITES SAS",
+    enlace: "https://drive.google.com/file/d/1RenSt4ZkAg-2nq32__6Rl2LIC2-AKhok/view?usp=drive_link"
+  },
+  "8901011760": {
+    nombre: "MEICO S.A.",
+    enlace: "https://drive.google.com/file/d/1Yo0T_IzMPlMTrst7YwhgyPo6E9p7u3Vn/view?usp=drive_link"
+  },
+  "9006068381": {
+    nombre: "OFFIMARKET ANDINA S.A.S.",
+    enlace: "https://drive.google.com/file/d/13YMHrGCCSNAkAmI9qRoYYoWs4UQW4qBT/view?usp=drive_link"
+  },
+  "9015146448": {
+    nombre: "OUTLEPLAST MUEBLES SAS",
+    enlace: "https://drive.google.com/file/d/1n4sCjPjk5sYmeQ9R93sqlpIGPk0Qu9mj/view?usp=drive_link"
+  },
+  "9004255910": {
+    nombre: "PLASTICOS PUPIPLAST DEL CARIBE SAS",
+    enlace: "https://drive.google.com/file/d/1T9UUXcxNVqmTx3kxmnLTUIgaMfiABKS3/view?usp=drive_link"
+  },
+  "9003460247": {
+    nombre: "PRODUCTOS NACIONALES LA CUSTODIA SAS",
+    enlace: "https://drive.google.com/file/d/14EPfoCQuvBW2_vcvVlOCXqCjZeiOz0vA/view?usp=drive_link"
+  },
+  "9010891633": {
+    nombre: "PROECO SIMUNISTROS SAS",
+    enlace: "https://drive.google.com/file/d/1yuHYcfjQKv00F99g7dT83Z2MW3ayImBF/view?usp=drive_link"
+  },
+  "9004606354": {
+    nombre: "RAMON PLAST SAS",
+    enlace: "https://drive.google.com/file/d/1A4PUO7yH2c3uuApKVtcDFqeKIk12GgJt/view?usp=drive_link"
+  },
+  "72006404": {
+    nombre: "RIPOLL PATERNINA EDWIN JOAQUIN",
+    enlace: "https://drive.google.com/file/d/1sFv7vpTO6QMCD9Rmw04e_2AgDx-6Pv9W/view?usp=drive_link"
+  },
+  "72432267": {
+    nombre: "ROMERO RESTREPO JOSE DAVID",
+    enlace: "https://drive.google.com/file/d/1rb4u_fgrfjsrBpDsZGlE2ht35sxdnL6o/view?usp=drive_link"
+  },
+  "11295716925": {
+    nombre: "RUEDA MENDIETA JHON EDINSON",
+    enlace: "https://drive.google.com/file/d/15J75_aES8B1JxgzSSXQQ5-_8QmfepIKW/view?usp=drive_link+"
+  },
+  "8020137730": {
+    nombre: "S & T INGENIERIA Y CONSULTORIA S.A.S",
+    enlace: "https://drive.google.com/file/d/1xLvWPLtnpPHxCnHta0pbrMUyvExwBv4W/view?usp=drive_link"
+  },
+  "1048272050": {
+    nombre: "SANTIAGO VIZCAINO ALEXIS JOSE",
+    enlace: "https://drive.google.com/file/d/1MQVYl6dthCXF7i8n4UA_prT0skWCH3IH/view?usp=drive_link"
+  },
+  "28013962": {
+    nombre: "SERRANO DE SANCHEZ GRACIELA",
+    enlace: "https://drive.google.com/file/d/1gfCwrOZRi2ti-BPJqmV2E99bmeLs2eQz/view?usp=drive_link"
+  },
+  "1129538546": {
+    nombre: "SOLANO CAICEDO JORGE ANDRES",
+    enlace: "https://drive.google.com/file/d/10Q-arY0MBFfrPNQ_o8DgyQZtFTiKkqcE/view?usp=drive_link"
+  },
+  "9012608087": {
+    nombre: "SOTILLO LICORES SAS",
+    enlace: "https://drive.google.com/file/d/1Kpm4En-Dnofxyk7LvSSrLp1PVHuBiTiY/view?usp=drive_link"
+  },
+  "9011669377": {
+    nombre: "SUMINISTROS Y ASESORIAS D&G SAS",
+    enlace: "https://drive.google.com/file/d/1MmBx5sHj0rO-JVTuU0yHamybaMBbxT55/view?usp=drive_link"
+  },
+  "9006463098": {
+    nombre: "TEMPLAR S.A.S",
+    enlace: "https://drive.google.com/file/d/10VfHrwbPPeMADo1cp9z9vx73eudGcaUu/view?usp=drive_link"
+  },
+  "9010117178": {
+    nombre: "TERMOPAINEL COLOMBIA SAS",
+    enlace: "https://drive.google.com/file/d/1cuBFYjg_RNePfPdS55M4Ss3DXSsjGB_3/view?usp=drive_link"
+  },
+  "72138114": {
+    nombre: "TERRAZA HERNANDEZ HEVER",
+    enlace: "https://drive.google.com/file/d/1z3ittM_s-1_-NIOd-Ng-np2FFK4ymFRr/view?usp=drive_link"
+  },
+  "8300533408": {
+    nombre: "TRAMONTINA DE COLOMBIA S.A.S",
+    enlace: "https://drive.google.com/file/d/1Rxl_Y_PFsrJrfUH6V7fI8TT6kYaEtDOa/view?usp=drive_link"
+  },
+  "8110328542": {
+    nombre: "UN SOLO PROVEEDOR SAS",
+    enlace: "https://drive.google.com/file/d/1afno1__mTTFyFaZ0dxEFQaADf3lh13cS/view?usp=drive_link"
+  },
+  "9010881961": {
+    nombre: "VIRUTEX ILKO COLOMBIA S.A.S",
+    enlace: "https://drive.google.com/file/d/1gsj8436iwEd-BKrEMtqHtAwrozKGZdkC/view?usp=drive_link"
+  },
+  "1127587394": {
+    nombre: "ZAPATA NAVARRO HANDS ALEXANDER",
+    enlace: "https://drive.google.com/file/d/1moIdaujsZvY9HTfUR8fEH1rKYZLOv5Ec/view?usp=drive_link"
+  },
+};
+        function buscarCertificado() {
+            const nit = document.getElementById("nit").value.trim();
+            const resultado = document.getElementById("resultado");
+            if (certificados[nit]) {
+                const data = certificados[nit];
+                resultado.innerHTML = `
+                    <p><strong>Nombre:</strong> ${data.nombre}</p>
+                    <a class="boton-descarga" href="${data.enlace}" target="_blank">Descargar Certificado</a>
+                `;
+            } else {
+                resultado.innerHTML = "<p style='color:red;'>No se encontró un certificado para ese NIT.</p>";
+            }
+        }
+    </script>
+</body>
+</html>
